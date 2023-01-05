@@ -1,0 +1,64 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %}buynow{% endblock %}
+{% block style%}
+{% endblock %}
+{% block body %}
+<main>
+    <div class="container">
+        {% if error %}
+        <div class="bg-info p-2">
+            {{error}}
+        </div>
+        {% endif %}
+        <form action="/buy_now/" method="post">
+            {% csrf_token %}
+            {% if data %}
+            <p>Select a Address</p>
+            {% for i in data %}
+            <ul class="list-group">
+                <li class="list-group-item"><input type="radio" id="html" name="address" value="<b>{{i.Full_Name}}</b> 
+                    {{i.House_no_or_Building}},{{i.Area}},{{i.Landmark}},{{i.Town_or_City}},{{i.State}},Phone Number:
+                    {{i.Mobile_number}}">
+                    <label for="html"><b>{{i.Full_Name}}</b>
+                        {{i.House_no_or_Building}}, {{i.Area}}, {{i.Landmark}}, {{i.Town_or_City}}, {{i.State}}, Phone
+                        Number:
+                        {{i.Mobile_number}}
+                    </label>
+                    <a class="pl-2 pr-2" href="/address/edit/{{i.id}}/">Edit</a>
+                </li>
+                {% endfor %}
+            </ul>
+            <a href="/address/"><button type="button" class="btn btn-secondary mt-4">Add Address</button></a>
+            <hr>
+            {% for i in object %}
+            <div class="row border rounded">
+                <div class="col-3">
+                    <img src="{% static i.nameId.img %}" alt="{{i.nameId.name}}" width="100%">
+                </div>
+                <div class="col-9 p-3 bg-light">
+                    <div class="font-x-l">{{i.nameId.name}}</div>
+                    <h5 class="amount"><b><sup>&#8377;</sup> {{i.nameId.price}}.00</b></h5>
+                    <div class="col-4 col-sm-2 mt-2">
+                        <select class="form-select" name="itemAmount{{i.nameId.id}}">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary mt-4">Buy Now</button>
+            {% else %}
+            <div class="text-center pt-5"> Please add the Address First<br>Cant find any Address for Delivery <br>
+                <a href="/address/"><button type="button" class="btn btn-secondary mt-4">Add Address</button></a>
+            </div>
+            {% endif %}
+        </form>
+
+    </div>
+</main>
+{% endblock %}

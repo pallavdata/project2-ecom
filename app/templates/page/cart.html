@@ -1,0 +1,62 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %}CART{% endblock %}
+
+
+{% block style %}
+<style>
+    sup {
+        top: -0.2em;
+    }
+
+    .font-x-l {
+        font-size: x-large;
+    }
+
+    .font-s {
+        font-size: small;
+    }
+</style>
+{% endblock %}
+{% block body %}
+
+<div class="container">
+    {% if object %}
+    <div class="border p-4">
+
+        {% for i in object %}
+        <div class="row border rounded">
+            <div class="col-3">
+                <img src="{% static i.nameId.img %}" alt="{{i.nameId.name}}" width="100%">
+            </div>
+            <div class="col-9 p-3 bg-light">
+                <div class="font-x-l">{{i.nameId.name}}</div>
+                <h5 class="amount"><b><sup>&#8377;</sup> {{i.nameId.price}}.00</b></h5>
+                <div class="font-s">In Stock</div>
+                <div class="pt-2">
+                    <span> <a href="/data-delete/{{i.id}}/">Delete</a></span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <hr>
+        <div class="text-end">
+            <div class="mr-auto"><b>Total ({{itemAmount}} items) : <sup>&#8377;</sup>{{itemSum}}</b></div>
+            <div>
+                <a href="/buy_now/"><button type="button" class="btn btn-primary">Buy Now</button></a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center">
+        <div>There is no items in your cart</div>
+        <a class="nav-link active" aria-current="page" href={% url 'home' %}><button type="button"
+                class="btn btn-primary">Shop Now</button></a>
+    </div>
+    {% endif %}
+</div>
+</div>
+<div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %}Data{% endblock %}
+{% block style%}
+<style>
+    .mrp{
+        color: rgb(115, 109, 102);
+        font-size: medium;
+    }
+    .amount{
+        font-size: x-large;
+        color: brown;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md">
+            <img class="card-img-top" src="{% static data.img %}" alt="{{data.name}}">
+        </div>
+        <div class="col-md mt-5">
+            <h4>{{data.name}}</h4>
+            <hr>
+            <div><span class="mrp">M.R.P.:</span>  <span class="amount">&#8377; {{data.price}}</span></div>
+            <h5>About this item</h5>
+            <ul>
+                {% for i in data.discription %}
+                <li>{{i}}</li>
+                {% endfor %}
+            </ul>
+                <div class="col text-center">
+                    <a href="/data-add/{{data.id}}/"><button type="button" class="btn btn-warning w-75">Add To Cart</button></a>
+                </div>
+            
+        </div>
+    </div>
+{% endblock %}

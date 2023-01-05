@@ -1,0 +1,73 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %}Address{% endblock %}
+{% block style%}
+{% endblock %}
+{% block body %}
+<main>
+    {% if form.errors %}
+    {% for field in form %}
+    {{field.label_tag}}
+    {% for error in field.errors %}
+    <strong>{{ error|escape }}</strong>
+    {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+    <strong>{{ error|escape }}</strong>
+    {% endfor %}
+    {% endif %}
+    <div class="container">
+        <form action="/address/edit/{{id}}/" method="post">
+            {% csrf_token %}
+            <label class="form-label pt-2 pb-2" for="id_Full_Name">Full Name:</label>
+            <input class="form-control" type="text" name="Full_Name" maxlength="120" value="{{data.Full_Name}}"
+                id="id_Full_Name">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="form-label pt-2 pb-2" for="id_Mobile_number">Mobile number:</label>
+                    <input class="form-control" type="text" name="Mobile_number" maxlength="20" required=""
+                        value="{{data.Mobile_number}}" id="id_Mobile_number">
+                </div>
+                <div class="col-sm-6">
+                    <label class="form-label pt-2 pb-2" for="id_Pincode">Pincode:</label>
+                    <input class="form-control" type="text" name="Pincode" maxlength="6" required=""
+                        value="{{data.Pincode}}" id="id_Pincode">
+                </div>
+            </div>
+            <label class="form-label pt-2 pb-2" for="id_House_no_or_Building">House no or Building:</label>
+            <input class="form-control" type="text" name="House_no_or_Building" maxlength="120"
+                value="{{data.House_no_or_Building}}" required="" id="id_House_no_or_Building">
+            <label class="form-label pt-2 pb-2" for="id_Area">Area:</label>
+            <input class="form-control" type="text" name="Area" maxlength="120" required="" value="{{data.Area}}"
+                id="id_Area">
+            <label class="form-label pt-2 pb-2" for="id_Landmark">Landmark:</label>
+            <input class="form-control" type="text" name="Landmark" value="{{data.Landmark}}" maxlength="120"
+                required="" id="id_Landmark">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="form-label pt-2 pb-2" for="id_Town_or_City">Town or City:</label>
+                    <input class="form-control" type="text" name="Town_or_City" value="{{data.Town_or_City}}"
+                        maxlength="120" required="" id="id_Town_or_City">
+                </div>
+                <div class="col-sm-6">
+                    <label class="form-label pt-2 pb-2" for="id_State">State:</label>
+                    <input class="form-control" type="text" name="State" maxlength="120" value="{{data.State}}"
+                        required="" id="id_State">
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Submit Edit</button>
+                </div>
+
+        </form>
+        <div class="col-auto">
+            <form action="/address/delete/{{id}}/" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary">Delete Address</button>
+            </form>
+        </div>
+    </div>
+    </div>
+</main>
+{% endblock %}

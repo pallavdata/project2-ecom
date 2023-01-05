@@ -1,0 +1,162 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %}HOME{% endblock %}
+{% block style%}
+<style>
+    body{
+        min-width: 200px;
+    }
+    .navbar {
+        background-color: antiquewhite;
+    }
+
+    .top-item {
+        background-color: antiquewhite;
+    }
+
+    .top-word-col {
+        position: relative;
+        font-family: cursive, system-ui, sans-serif;
+        color: brown;
+    }
+
+    .top-word {
+        position: absolute;
+        top: 20%;
+    }
+
+    .Brush-Script-MT {
+        font-family: "Brush Script MT";
+    }
+
+    .border-custom {
+        border-right: 8px solid;
+        border-top: 2px solid;
+        border-bottom: 4px solid;
+        padding: 10px;
+
+    }
+
+    .line {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .line::before {
+        content: "";
+        flex: 1 0;
+        border-bottom: 2px double;
+        margin: auto;
+        margin-right: 5px;
+    }
+
+    .line::after {
+        content: "";
+        flex: 5 1;
+        border-bottom: 2px double;
+        margin: auto;
+        margin-left: 5px;
+    }
+
+
+
+    .line2 {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .line2::before {
+        content: "";
+        flex: 1 1;
+        border-bottom: 2px solid;
+        margin: auto;
+        margin-right: 5px;
+    }
+
+    .line2::after {
+        content: "";
+        flex: 1 1;
+        border-bottom: 2px solid;
+        margin: auto;
+        margin-left: 5px;
+    }
+
+
+    .top-item>.top-word-col>.top-word>p {
+        text-decoration: underline;
+    }
+    @media only screen and (max-width: 666px) {
+  h1 {
+    font-size: large;
+  }
+  h5 {
+    font-size: small;
+  }
+  .border-custom{
+    border-top: 1px solid;
+    border-right: 5px solid;
+    border-bottom: 2px solid;
+  }
+}
+.top-item{
+    background-image: url( "/static/img.jpg");
+    background-blend-mode:lighten;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+@media only screen and (min-width: 400px) {
+    .top-item{
+        justify-content: space-around;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .top-item{
+        justify-content:space-between;
+    }
+  h1 {
+    font-size: small;
+  }
+  h5 {
+    font-size: xx-small;
+  }
+  .border-custom{
+    border-top: 1px solid;
+    border-right: 5px solid;
+    border-bottom: 2px solid;
+  }
+}
+</style>
+{% endblock %}
+{% block body %}
+<div class="container-xxl container-fluid">
+    <div class="row top-item">
+        <div class="col-auto top-word-col">
+            <div class="top-word border-custom">
+                <div class="line">
+                    <h5 class="Brush-Script-MT">Easy To Shop</h5>
+                </div>
+                <h1><b>WELCOME</b></h1>
+                <h5>To our website</h5>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-3 col-5">
+            <img src="{% static 'top.png' %}" alt="bg" width="100%">
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h2 class="line2 Brush-Script-MT mt-3 mb-3">Top Recomendation</h2>
+    <div class="row justify-content-around">
+        {% for i in object %}
+        <div class="card col-md-4 col-lg-3 col-6 m-2 ">
+            <img class="card-img-top" src="{% static i.img %}" alt="Card image cap">
+            <div class="card-body text-center">
+                <p class="card-title">{{i.name}}</p>
+                <a href="/add-to-cart/{{i.id}}/" class="btn btn-outline-info">Buy Now</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
